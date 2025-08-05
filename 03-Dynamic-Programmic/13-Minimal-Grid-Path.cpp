@@ -19,33 +19,37 @@ typedef complex<ll> P;
 #define iArray(a, n) for (ll i = 0; i < n; i++) cin >> a[i];
 #define i2(a, b) cin >> a >> b;
 #define oArray(a,n) for(ll i=0; i<n; i++) cout << a[i] << ' '; cout << endl;
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define rep0(i, n) for (int i = 0; i < (n); i++)
+#define all(x) x.begin(), x.end()
+#define YN(possible) cout << ((possible) ? "Yes" : "No") << endl;
 
 const ll MOD = 1000000007;
+const ll INF = 1e18;
 
 void sol(){
     ll n;
     cin >> n;
-    vector<ll> v(n);
-    iArray(v,n);
-    stack<pll> stk;
-    vll ans(n);
-    // cout << n;
-    // oArray(v,n);
-    // cout << endl;
-    for(ll i = 0; i <n ; i++) {        
-        while(!stk.empty() && stk.top().ff>=v[i]){
-            stk.pop();
+    vector<vector<char>> grid;
+    for(ll i = 0; i < n; i++) {
+        for(ll j=0; j<n; j++){
+            cin >> grid[i][j];
         }
-        if(stk.empty()){
-            ans[i] = 0;
-        }
-        else{
-            ans[i] = stk.top().ss+1;
-        }
-        stk.push({v[i],i});
-        
     }
-    oArray(ans,n);
+    priority_queue<pair<string,ll>, vector<pair<string,ll>>, greater<pair<string,ll>>> pq;
+    vector<vector<string>> dp(n,vector<string>(n));
+    dp[0][0] = "A";
+    pq.push({"A",0});
+    vector<vector<ll>> visited;
+    visited[i][j]
+    while(!pq.empty()){
+        auto [curr_str,nd] = pq.top();
+        pq.pop();
+        ll x = nd/n, y = nd%n;
+        if(x+1<n){
+               
+        }
+    }
 }
 
 int main(){

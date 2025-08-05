@@ -28,31 +28,43 @@ const ll MOD = 1000000007;
 const ll INF = 1e18;
 
 void sol(){
-    ll n;
-    cin >> n;
-    vll a(n);
+    ll n,m;
+    i2(n,m);
+    vll a(n),b(m);
     iArray(a,n);
-
-    vector<vector<pll>> dp(n+1,vector<pll>(n));
-    for(int i=0; i<n; i++){
-        dp[1][i] = {a[i],0};
-    }
-
-    for(ll l=2; l<=n; l++){
-        for(ll i=0; i+l<=n; i++){
-            ll fst = a[i] + dp[l-1][i+1].ss;
-            ll lst = a[i+l-1] + dp[l-1][i].ss;
-            if(fst>lst){
-                dp[l][i] = {fst,dp[l-1][i+1].ff};
+    iArray(b,m);
+    vector<vll> dp(n+1,vll(m+1));
+    vector<vll> dp2(n+1, vll(m+1));
+    dp[0][0] = 0;
+    for(ll i=1; i<=n; i++){
+        for(ll j=1; j<=m; j++){
+            if(a[i-1]==b[j-1]){
+                dp[i][j] = dp[i-1][j-1]+1;
+                dp2[i][j] = 1;
             }
-            else{
-                dp[l][i] = {lst,dp[l-1][i].ff};
+            else if(dp[i-1][j]>dp[i][j-1]){
+                dp[i][j] = dp[i-1][j];
+                dp2[i][j] = -1;
             }
+            else dp[i][j] = dp[i][j-1];
         }
     }
-
-    o1(dp[n][0].ff);
-
+    o1(dp[n][m]);
+    vll ans;
+    ll l=n,r=m;
+    while(l>0 && r>0){
+        if(dp2[l][r]==1){
+            ans.pb(a[l-1]);
+            l--;
+            r--;
+        }
+        else if(dp2[l][r]==-1){
+            l--;
+        }
+        else r--;
+    }
+    reverse(all(ans));
+    oArray(ans,ans.size());
 }
 
 int main(){

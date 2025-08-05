@@ -22,25 +22,39 @@ typedef complex<ll> P;
 
 const ll MOD = 1000000007;
 
+void solve(vector<int>& v, int start){
+    int n = v.size();
+    if(n==1){
+        cout << v[0];
+        return;
+    }
+    if(n==0){
+        return;
+    }
+    vector<int> new_v;
+    int new_start = 0;
+    if(start>0){
+        new_v.pb(v[0]);
+    }
+    for(int i=start; i<n; i++){
+        cout << v[i] << ' ';
+        ++i;
+        if(i<n) new_v.push_back(v[i]);
+        else{
+            new_start = 1;
+        }
+    }
+    solve(new_v,new_start);
+}
+
 void sol(){
     ll n;
     cin >> n;
-    set<ll> s;
-    for(ll i = 1; i <=n; i++) {
-        s.insert(i);
+    vector<int> v(n);
+    for(int i=1; i<=n; i++){
+        v[i-1] = i;
     }
-
-    auto itr = s.begin();
-    for(int i=0; i<n; i++){
-        itr++;
-        if(itr==s.end()) itr = s.begin();
-        cout << *itr << ' ';
-        auto x = itr;
-        itr++;
-        if(itr==s.end()) itr = s.begin();
-        s.erase(x);
-    }
-
+    solve(v,1);
 }
 
 int main(){
